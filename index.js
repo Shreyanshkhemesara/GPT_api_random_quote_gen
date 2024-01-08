@@ -24,7 +24,7 @@ const openai = new OpenAI({
 });
 
 const msgs = [];
-
+// overall routes modification and making more readable.
 const WriteInFIle = async (msg) => {
     fs.appendFile(
         "./data.txt",
@@ -64,6 +64,7 @@ app.post("/msg", async (req, res) => {
 });
 
 app.get("/msg", (req, res) => {
+    // read and add to add --> next task
     console.log("hitted /msg");
     res.send(msgs);
 });
