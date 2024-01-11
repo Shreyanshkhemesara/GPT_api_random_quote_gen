@@ -1,3 +1,0 @@
-{"role":"assistant","content":"\"The best way to predict your future is to create it.\" - Abraham Lincoln"}
-{"role":"assistant","content":"\"Be the change you wish to see in the world.\" - Mahatma Gandhi"}
-{"role":"assistant","content":"\"Success is not final, failure is not fatal: it is the courage to continue that counts.\" - Winston Churchill"}
