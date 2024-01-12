@@ -28,13 +28,13 @@ const openai = new OpenAI({
 const msgs = [];
 // overall routes modification and making more readable.
 const WriteInFIle = async (msg) => {
-    const filePath = './client/src/data.json';
-    const existing = await fs.readFile(filePath, 'utf-8');
-    const jsonData = existing?JSON.parse(existing):[];
+    const filePath = "./client/src/data.json";
+    const existing = await fs.readFile(filePath, "utf-8");
+    const jsonData = existing ? JSON.parse(existing) : [];
 
-    jsonData.push(msg[0].content);
+    jsonData.push(msg[1].content);
 
-    await fs.writeFile(filePath, JSON.stringify(jsonData,null,2), 'utf-8')
+    await fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), "utf-8");
 };
 
 app.post("/msg", async (req, res) => {
@@ -47,7 +47,7 @@ app.post("/msg", async (req, res) => {
             model: "gpt-3.5-turbo-0301",
             messages: msgs,
         });
-        msgs.pop(); 
+        msgs.pop();
         msgs.push({
             role: "gpt",
             content: response.choices[0].message,
@@ -75,6 +75,6 @@ app.get("/", (req, res) => {
     res.send("Hello World2");
 });
 
-app.listen(3000, () => {
-    console.log("App started at 3000");
+app.listen(8080, () => {
+    console.log("App started at 8080");
 });

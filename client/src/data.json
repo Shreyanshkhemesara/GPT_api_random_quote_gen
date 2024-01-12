@@ -30,5 +30,11 @@
   {
     "role": "assistant",
     "content": "\"The greatest glory in living lies not in never falling, but in rising every time we fall.\" - Nelson Mandela"
+  },
+  "Give me a quote ",
+  "Give me a quote ",
+  {
+    "role": "assistant",
+    "content": "\"In the end, we will remember not the words of our enemies, but the silence of our friends.\" - Martin Luther King Jr."
   }
 ]
