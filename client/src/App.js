@@ -4,11 +4,21 @@ import data from './data.json'
 function App() {
 
 
-  const performReq = async() => {
-    await fetch('http://localhost:3000/msg')
-  }
+  useEffect(() => {
+    const performReq = async() => {
+      await fetch('http://localhost:3000/msg', {
+        method: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        // body: JSON.stringify({
+        //   userMessage: 'Give me a quote'
+        // })
+      }).catch(err => console.log(err))
+    }
 
-  setInterval(performReq,5000);
+    setInterval(performReq,5000);
+  },[data])
+  
+  
 
   return (
     <>
