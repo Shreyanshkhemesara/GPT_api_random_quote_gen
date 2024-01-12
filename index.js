@@ -31,8 +31,15 @@ const WriteInFIle = async (msg) => {
     const filePath = "./client/src/data.json";
     const existing = await fs.readFile(filePath, "utf-8");
     const jsonData = existing ? JSON.parse(existing) : [];
-
-    jsonData.push(msg[1].content);
+    var len = msg.len;
+    var ix = 0;
+    for (var i = 0; i < len; i++) {
+        if (msg[i].user == "gpt") {
+            ix = i;
+            break;
+        }
+    }
+    jsonData.push(msg[ix].content);
 
     await fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), "utf-8");
 };
@@ -41,12 +48,14 @@ app.post("/msg", async (req, res) => {
     try {
         msgs.push({
             role: "user",
-            content: "Give me a quote ",
+            content: "Give me a quote you havent sent me before",
         });
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo-0301",
             messages: msgs,
         });
+        const current = new Date();
+        console.log("Req at: " + current);
         msgs.pop();
         msgs.push({
             role: "gpt",

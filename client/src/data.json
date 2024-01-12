@@ -31,10 +31,32 @@
     "role": "assistant",
     "content": "\"The greatest glory in living lies not in never falling, but in rising every time we fall.\" - Nelson Mandela"
   },
-  "Give me a quote ",
-  "Give me a quote ",
   {
     "role": "assistant",
     "content": "\"In the end, we will remember not the words of our enemies, but the silence of our friends.\" - Martin Luther King Jr."
+  },
+  {
+    "role": "assistant",
+    "content": "\"The only way to do great work is to love what you do\" - Steve Jobs"
+  },
+  {
+    "role": "assistant",
+    "content": "\"The only way to do great work is to love what you do.\" - Steve Jobs"
+  },
+  {
+    "role": "assistant",
+    "content": "\"The only way to do great work is to love what you do.\" - Steve Jobs"
+  },
+  {
+    "role": "assistant",
+    "content": "\"Everything will be okay in the end. If it's not okay, it's not the end.\" - John Lennon."
+  },
+  {
+    "role": "assistant",
+    "content": "\"We are not given a good life or a bad life. We are given life, and it's up to us to make it good or bad.\" - unknown"
+  },
+  {
+    "role": "assistant",
+    "content": "\"The greatest glory in living lies not in never falling, but in rising every time we fall.\" - Nelson Mandela"
   }
 ]
