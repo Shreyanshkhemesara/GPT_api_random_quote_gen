@@ -31,6 +31,8 @@ const WriteInFIle = async (msg) => {
     const filePath = "./client/src/data.json";
     const existing = await fs.readFile(filePath, "utf-8");
     const jsonData = existing ? JSON.parse(existing) : [];
+    // console.log(msg);
+    // console.log(msg.len);
     var len = msg.len;
     var ix = 0;
     for (var i = 0; i < len; i++) {
