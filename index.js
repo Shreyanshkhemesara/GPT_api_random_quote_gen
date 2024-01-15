@@ -1,3 +1,6 @@
+const quoteRoutes  = require('./routes/quoteRoute.js')
+const mongoose = require('mongoose');
+const {connectDB} = require('./config/db.js')
 const express = require("express");
 const bodyParser = require("body-parser");
 const { Configuration, OpenAIApi, OpenAI } = require("openai");
@@ -6,6 +9,19 @@ require("dotenv").config();
 
 const fs = require("fs").promises;
 const path = require("path");
+
+//connect to mongodb database
+mongoose.connect(process.env.MONGO_URL);
+
+//schema of message
+const messageSchema = new mongoose.Schema({
+    content: {
+        type: String,
+        required: true,
+    }
+})
+const Message = mongoose.model("Message", messageSchema);
+
 
 const app = express();
 
@@ -63,6 +79,15 @@ app.post("/msg", async (req, res) => {
             role: "gpt",
             content: response.choices[0].message,
         });
+
+        //creating a message to save in db.
+        const newMessage = new Message({
+            content: JSON.stringify(response.choices[0].message),
+        })
+
+        //saving it in db
+        await newMessage.save();
+
         console.log(msgs);
         await WriteInFIle(msgs).then(() => {
             console.log("writing done!");
