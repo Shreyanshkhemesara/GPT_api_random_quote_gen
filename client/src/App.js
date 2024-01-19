@@ -6,7 +6,7 @@ function App() {
   const [content, setContent] = useState("");
   const performReq = async () => {
     try {
-      const response = await fetch("http://localhost:8080/msg", {
+      const response = await fetch("http://172.20.10.4:8080/msg", {
         method: "get",
         contentType: "application/json; charset=utf-8",
       });
