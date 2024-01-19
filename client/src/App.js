@@ -6,10 +6,17 @@ function App() {
   const [content, setContent] = useState("");
   const performReq = async () => {
     try {
-      const response = await fetch("http://172.20.10.4:8080/msg", {
-        method: "get",
-        contentType: "application/json; charset=utf-8",
-      });
+      const response = await fetch(
+        "https://aa10-202-148-59-157.ngrok-free.app/msg",
+        {
+          method: "get",
+          headers: new Headers({
+            "ngrok-skip-browser-warning": "69420",
+          }),
+          contentType: "application/json; charset=utf-8",
+        }
+      );
+      console.log(response.body);
       const data = await response.json();
       console.log(data);
       if (data && data.content) {
