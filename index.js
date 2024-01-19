@@ -61,6 +61,33 @@ const WriteInFIle = async (msg) => {
   await fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), "utf-8");
 };
 
+// a function to store the data in db using mongoose:
+const callEvery20Seconds = async () => {
+  msgs.push({
+    role: "user",
+    content: "Give me a quote you havent sent me before",
+  });
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo-0301",
+    messages: msgs,
+  });
+
+  //creating a message to save in db.
+  const newMessage = new Message({
+    content: JSON.stringify(response.choices[0].message),
+  });
+
+  //saving it in db
+  await newMessage
+    .save()
+    .then(() => console.log("saved in db"))
+    .catch((err) => console.log(err));
+
+  console.log(newMessage);
+};
+
+const intervalCalls = setInterval(callEvery20Seconds, 20000);
+
 app.post("/msg", async (req, res) => {
   try {
     msgs.push({
@@ -100,9 +127,19 @@ app.post("/msg", async (req, res) => {
 });
 
 app.get("/msg", (req, res) => {
-  // read and add to add --> next task
-  console.log("hitted /msg");
-  res.send(msgs);
+  Message.find({})
+    .sort({ _id: -1 })
+    .limit(1)
+    .then((data) => {
+      if (data) {
+        res.status(200).json(data[0]);
+      } else {
+        res.status(404).json({ msg: "data not found in db" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ msg: "internal server error" });
+    });
 });
 
 app.get("/", (req, res) => {
