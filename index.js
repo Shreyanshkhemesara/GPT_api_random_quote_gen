@@ -14,12 +14,15 @@ mongoose
   .connect(process.env.MONGOURL)
   .then(() => console.log("successfully connected to db server"));
 //schema of message
-const messageSchema = new mongoose.Schema({
-  content: {
-    type: String,
-    required: true,
+const messageSchema = new mongoose.Schema(
+  {
+    content: {
+      type: String,
+      required: true,
+    },
   },
-});
+  { timestamps: true }
+);
 const Message = mongoose.model("Message", messageSchema);
 
 const app = express();
@@ -86,7 +89,7 @@ const callEvery20Seconds = async () => {
   console.log(newMessage);
 };
 
-const intervalCalls = setInterval(callEvery20Seconds, 20000);
+const intervalCalls = setInterval(callEvery20Seconds, 2000);
 
 app.post("/msg", async (req, res) => {
   try {
@@ -133,6 +136,20 @@ app.get("/msg", (req, res) => {
     .then((data) => {
       if (data) {
         res.status(200).json(data[0]);
+      } else {
+        res.status(404).json({ msg: "data not found in db" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ msg: "internal server error" });
+    });
+});
+
+app.get("/allmsg", (req, res) => {
+  Message.find()
+    .then((data) => {
+      if (data) {
+        res.status(200).json(data);
       } else {
         res.status(404).json({ msg: "data not found in db" });
       }
